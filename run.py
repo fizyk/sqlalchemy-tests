@@ -157,15 +157,15 @@ if __name__ == '__main__':
         sqltest_delete_commit
     ]
 
-    print '=' * 20
-    print '{dialect} dialect test'.format(dialect=dialect)
+    print('=' * 20)
+    print('{dialect} dialect test'.format(dialect=dialect))
 
     for alchemy_test in alchemy_tests:
-        print '-' * 20
-        print alchemy_test.__doc__
+        print('-' * 20)
+        print(alchemy_test.__doc__)
 
         for c in counters:
-            print 'Objects: {0} ({1} tests)'.format(c, test_repeat)
+            print('Objects: {0} ({1} tests)'.format(c, test_repeat))
             t_avg = 0
             t_max = 0
             t_min = 0
@@ -189,4 +189,8 @@ if __name__ == '__main__':
                     timer.print_exc()
                     raise
 
-            print "{0:.3f} s/run. t_min: {1:.3f}, t_max: {2:.3f}, object_average: {3:.3f}".format((t_avg / test_repeat), t_min, t_max, (t_avg / (test_repeat * c)))
+            print(
+                "{0:.3f} s/run. t_min: {1:.3f}, t_max: {2:.3f}, object_average: {3:.3f}".format(
+                    (t_avg / test_repeat), t_min, t_max, (t_avg / (test_repeat * c))
+                )
+            )
