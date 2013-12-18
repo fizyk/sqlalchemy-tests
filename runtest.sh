@@ -3,7 +3,7 @@
 source `which virtualenvwrapper.sh`
 
 connectors=('psycopg2' 'pypostgresql' 'pg8000' 'mysqldb' 'oursql' 'mysqlconnector')
-packages=('psycopg2' 'pypostgresql' 'pg8000' 'mysql-python' 'oursql' 'mysqlconnector')
+packages=('psycopg2' 'py-postgresql' 'pg8000' 'mysql-python' 'oursql' 'mysql-connector-python')
 
 #py2
 for i in 0 1 2 3 4 5
