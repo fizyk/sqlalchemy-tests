@@ -1,8 +1,10 @@
 #!/bin/bash
 
+source `which virtualenvwrapper.sh`
+
 echo 'test psycopg2'
 workon alchemy-psycopg2
-python run.py psycopg2 100 > alchemy-psycopg2.log
+# python run.py psycopg2 100 > alchemy-psycopg2.log
 
 # python3.1 only
 # echo 'test pypostgresql'
