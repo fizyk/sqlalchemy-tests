@@ -16,6 +16,23 @@ from sqlalchemy import UnicodeText
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 
+try:
+    import settings
+except ImportError:
+    print('''
+Please, create settings file with two dicts:
+
+    {
+        'user': '',
+        'password': '',
+        'host': '',
+        'port': 0,
+        'database': ''
+    }
+
+one for postgresql, the other for mysql''')
+    exict(-1)
+
 Base = declarative_base()
 
 # 238 characters length
@@ -47,11 +64,15 @@ dialect = str(sys.argv[1])
 
 if dialect in ['psycopg2', 'pypostgresql', 'pg8000']:
     connection_string = 'postgresql+{0}://'
+    database_access = settings.postgresql
 elif dialect in ['mysqldb', 'oursql', 'mysqlconnector']:
     connection_string = 'mysql+{0}://'
+    database_access = settings.mysql
+
+connection_string += '{user}:{password}@{host}:{port}/{database}'
 
 
-engine = create_engine(connection_string.format(dialect))
+engine = create_engine(connection_string.format(dialect, **database_access))
 
 Session = sessionmaker(bind=engine)
 session = Session()

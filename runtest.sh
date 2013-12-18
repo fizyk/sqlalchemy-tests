@@ -20,7 +20,7 @@ do
     echo 'pip freeze' >> $log
     pip freeze >> $log
     echo '>>>>>>>>>' >> $log
-    #python run.py ${connectors[$i]} 100 >> $log
+    python run.py ${connectors[$i]} 100 >> $log
     deactivate
     echo 'Clearing after'
     rmvirtualenv $venv
