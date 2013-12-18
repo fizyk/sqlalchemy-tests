@@ -2,27 +2,51 @@
 
 source `which virtualenvwrapper.sh`
 
-echo 'test psycopg2'
-workon alchemy-psycopg2
-# python run.py psycopg2 100 > alchemy-psycopg2.log
+connectors=('psycopg2' 'pypostgresql' 'pg8000' 'mysqldb' 'oursql' 'mysqlconnector')
+packages=('psycopg2' 'pypostgresql' 'pg8000' 'mysql-python' 'oursql' 'mysqlconnector')
 
-# python3.1 only
-# echo 'test pypostgresql'
-# workon alchemy-pypostgresql
-# python run.py pypostgresql 100 > alchemy-pypostgresql
+#py2
+for i in 0 #1 2 3 4 5
+do
 
-echo 'test pg8000'
-workon alchemy-pg8000
-#python run.py pg8000 100 > alchemy-pg8000.log
+    echo 'Testing '${connectors[$i]}
+    venv="alchemy-${connectors[$i]}"
+    log=$venv.log
+    mkvirtualenv $venv
+    pip install --upgrade sqlalchemy ${packages[$i]}
+    echo 'Python version: 2.7.5' > $log
+    python --version
+    echo '>>>>>>>>>' >> $log
+    echo 'pip freeze' >> $log
+    pip freeze >> $log
+    echo '>>>>>>>>>' >> $log
+    #python run.py ${connectors[$i]} 100 >> $log
+    deactivate
+    echo 'Clearing after'
+    rmvirtualenv $venv
 
-echo 'test mysqldb'
-workon alchemy-mysqldb
-#python run.py mysqldb 100 > alchemy-mysqldb.log
+done
 
-echo 'test oursql'
-workon alchemy-oursql
-#python run.py oursql 100 > alchemy-oursql.log
+echo 'Python 3'
 
-echo 'test mysqlconnector'
-workon alchemy-mysqlconnector
-#python run.py mysqlconnector 100 > alchemy-mysqlconnector.log
+#py3
+for i in 0 #1 2 3 4 5
+do
+
+    echo 'Testing '${connectors[$i]}
+    venv="alchemy-${connectors[$i]}-py3"
+    log=$venv.log
+    mkvirtualenv -p `which python3` $venv
+    pip install --upgrade sqlalchemy ${packages[$i]}
+    echo 'Python version: 3.3.2' > $log
+    python3 --version
+    echo '>>>>>>>>>' >> $log
+    echo 'pip freeze' >> $log
+    pip freeze >> $log
+    echo '>>>>>>>>>' >> $log
+    python3 run.py ${connectors[$i]} 100 >> $log
+    deactivate
+    echo 'Clearing after'
+    rmvirtualenv $venv
+
+done
