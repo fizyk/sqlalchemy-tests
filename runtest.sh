@@ -6,14 +6,14 @@ connectors=('psycopg2' 'pypostgresql' 'pg8000' 'mysqldb' 'oursql' 'mysqlconnecto
 packages=('psycopg2' 'pypostgresql' 'pg8000' 'mysql-python' 'oursql' 'mysqlconnector')
 
 #py2
-for i in 0 #1 2 3 4 5
+for i in 0 1 2 3 4 5
 do
 
     echo 'Testing '${connectors[$i]}
     venv="alchemy-${connectors[$i]}"
     log=$venv.log
     mkvirtualenv $venv
-    pip install --upgrade sqlalchemy ${packages[$i]}
+    pip install --upgrade sqlalchemy ${packages[$i]} > $venv.installation.log
     echo 'Python version: 2.7.5' > $log
     python --version
     echo '>>>>>>>>>' >> $log
@@ -30,14 +30,14 @@ done
 echo 'Python 3'
 
 #py3
-for i in 0 #1 2 3 4 5
+for i in 0 1 2 3 4 5
 do
 
     echo 'Testing '${connectors[$i]}
     venv="alchemy-${connectors[$i]}-py3"
     log=$venv.log
     mkvirtualenv -p `which python3` $venv
-    pip install --upgrade sqlalchemy ${packages[$i]}
+    pip install --upgrade sqlalchemy ${packages[$i]} > $venv.installation.log
     echo 'Python version: 3.3.2' > $log
     python3 --version
     echo '>>>>>>>>>' >> $log
