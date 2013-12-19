@@ -16,6 +16,10 @@ from sqlalchemy import UnicodeText
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 
+# py3 compatibility
+if sys.version_info.major == 3:
+    xrange = range
+
 try:
     import settings
 except ImportError:
