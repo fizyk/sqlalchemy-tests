@@ -13,7 +13,7 @@ do
     venv="alchemy-${connectors[$i]}"
     log=$venv.log
     mkvirtualenv $venv
-    pip install --upgrade sqlalchemy ${packages[$i]} > $venv.installation.log
+    pip install --upgrade sqlalchemy --allow-external ${packages[$i]} --allow-unverified ${packages[$i]} ${packages[$i]} > $venv.installation.log
     echo 'Python version: 2.7.5' > $log
     python --version
     echo '>>>>>>>>>' >> $log
@@ -37,7 +37,7 @@ do
     venv="alchemy-${connectors[$i]}-py3"
     log=$venv.log
     mkvirtualenv -p `which python3` $venv
-    pip install --upgrade sqlalchemy ${packages[$i]} > $venv.installation.log
+    pip install --upgrade sqlalchemy --allow-external ${packages[$i]} --allow-unverified ${packages[$i]} ${packages[$i]} > $venv.installation.log
     echo 'Python version: 3.3.2' > $log
     python3 --version
     echo '>>>>>>>>>' >> $log
